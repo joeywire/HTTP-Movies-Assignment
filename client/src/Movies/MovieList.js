@@ -8,6 +8,7 @@ function MovieList({ movies }) {
       {
         movies.map(movie => (
           <Link key={movie.id} to={`/movies/${movie.id}`}>
+            {/* Rendering movies here just to display the data - doesn't have to do with any routes */}
             <MovieCard movie={movie} />
           </Link>
         ))
