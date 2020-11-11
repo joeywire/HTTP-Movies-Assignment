@@ -14,6 +14,8 @@ const UpdateForm = props => {
     //Organize needed data
     const [item, setItem] = useState({});
     const { id } = useParams();
+    const { push } = useHistory();
+    const { getMovieList } = props;
 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/movies/${id}`)
@@ -25,7 +27,6 @@ const UpdateForm = props => {
 
     //Event Handlers
     const handleChange = e => {
-        e.persist();
         setItem({
             ...item, 
             [e.target.name]: e.target.value
@@ -34,31 +35,40 @@ const UpdateForm = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
+        axios.put(`http://localhost:5000/api/movies/${id}`, item)
+            .then(res => {
+                getMovieList();
+                push(`/movies/${id}`);
+            })
+            .catch(err => console.log(err))
     }
     
     return (
         <div>
             <h3>Update Movie Information:</h3>
             <form onSubmit={handleSubmit}>
+                <label>Title:</label>
                 <input 
                     type="text"
                     name="title"
                     value={item.title}
                     onChange={handleChange}
                 />
-                 <input 
+                <label>Director:</label>
+                <input 
                     type="text"
                     name="director"
                     value={item.director}
                     onChange={handleChange}
                 />
-                 <input 
+                <label>Metascore:</label>
+                <input 
                     type="text"
-                    name="title"
+                    name="metascore"
                     value={item.metascore}
                     onChange={handleChange}
                 />
-
+                <button>Update Movie</button>
             </form>
         </div>
     )
