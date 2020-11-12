@@ -30,15 +30,15 @@ const App = () => {
   return (
     <>
       <SavedList list={savedList} />
-
+      {/* Here the / route, typically though of as home, is rendering teh MovieList component  */}
       <Route exact path="/">
         <MovieList movies={movieList} />
       </Route>
-
+      {/* Dynamic ID - not the colon */}
       <Route path="/movies/:id">
         <Movie addToSavedList={addToSavedList} getMovieList={getMovieList} />
       </Route>
-
+      {/* Dynamic ID - not the colon */}
       <Route path="/update-movie/:id"> 
         <UpdateForm getMovieList={getMovieList}/>
       </Route>
