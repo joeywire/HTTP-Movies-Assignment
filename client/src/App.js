@@ -3,7 +3,10 @@ import { Route } from "react-router-dom";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
+import UpdateForm from "./Movies/UpdateForm";
 import axios from 'axios';
+
+
 
 const App = () => {
   const [savedList, setSavedList] = useState([]);
@@ -27,13 +30,17 @@ const App = () => {
   return (
     <>
       <SavedList list={savedList} />
-
+      {/* Here the / route, typically though of as home, is rendering teh MovieList component  */}
       <Route exact path="/">
         <MovieList movies={movieList} />
       </Route>
-
+      {/* Dynamic ID - not the colon */}
       <Route path="/movies/:id">
-        <Movie addToSavedList={addToSavedList} />
+        <Movie addToSavedList={addToSavedList} getMovieList={getMovieList} />
+      </Route>
+      {/* Dynamic ID - not the colon */}
+      <Route path="/update-movie/:id"> 
+        <UpdateForm getMovieList={getMovieList}/>
       </Route>
     </>
   );
